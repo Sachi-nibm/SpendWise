@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Firebase
 
 struct ContentView: View {
     
@@ -13,6 +14,7 @@ struct ContentView: View {
     @State var password: String = ""
     
     var body: some View {
+        // Reference: https://stackoverflow.com/a/60374737
         GeometryReader { geometry in
             ScrollView(.vertical) {
                 VStack {
@@ -47,7 +49,15 @@ struct ContentView: View {
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                     
                     Button() {
-                        
+                        Auth.auth().signIn(withEmail: username, password: password) { (result, error) in
+                            if error != nil {
+                                print(error)
+                                print(error?.localizedDescription ?? "")
+                            } else {
+                                print(result)
+                                print("success")
+                            }
+                        }
                     } label: {
                         Text("LOGIN")
                             .font(.title3)
