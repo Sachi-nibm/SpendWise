@@ -10,13 +10,26 @@ import Firebase
 
 struct ContentView: View {
     
-    @State var username: String = ""
-    @State var password: String = ""
+    @State var isLoggedIn: Bool = false;
     
     var body: some View {
         NavigationView {
-            LoginView()
+            if (isLoggedIn) {
+                HomeView()
+            } else {
+                LoginView()
+            }
         }
+        .onAppear(perform: {
+            Auth.auth().addStateDidChangeListener() { auth, user in
+                if user != nil {
+                    print(user?.email!)
+                    isLoggedIn = true
+                } else {
+                    isLoggedIn = false
+                }
+            }
+        })
     }
     
     struct ContentView_Previews: PreviewProvider {

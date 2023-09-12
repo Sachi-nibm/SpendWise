@@ -11,6 +11,7 @@
 		E665A9D02AACF370009A6A8A /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E665A9CF2AACF370009A6A8A /* LoginView.swift */; };
 		E68B57082AA8D3F80080B6EA /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = E68B57072AA8D3F80080B6EA /* FirebaseAuth */; };
 		E68B570A2AA8D94A0080B6EA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E68B57092AA8D9490080B6EA /* GoogleService-Info.plist */; };
+		E69EDC4F2AB107E30021D1F1 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E69EDC4E2AB107E30021D1F1 /* HomeView.swift */; };
 		E6DBF2B32AA33BC1004A7B35 /* SpendWiseApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6DBF2B22AA33BC1004A7B35 /* SpendWiseApp.swift */; };
 		E6DBF2B52AA33BC1004A7B35 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6DBF2B42AA33BC1004A7B35 /* ContentView.swift */; };
 		E6DBF2B72AA33BC3004A7B35 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E6DBF2B62AA33BC3004A7B35 /* Assets.xcassets */; };
@@ -21,6 +22,7 @@
 		E665A9CD2AACED07009A6A8A /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 		E665A9CF2AACF370009A6A8A /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		E68B57092AA8D9490080B6EA /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		E69EDC4E2AB107E30021D1F1 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		E6DBF2AF2AA33BC1004A7B35 /* SpendWise.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpendWise.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E6DBF2B22AA33BC1004A7B35 /* SpendWiseApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpendWiseApp.swift; sourceTree = "<group>"; };
 		E6DBF2B42AA33BC1004A7B35 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -66,6 +68,7 @@
 				E6DBF2B82AA33BC3004A7B35 /* Preview Content */,
 				E665A9CD2AACED07009A6A8A /* RegisterView.swift */,
 				E665A9CF2AACF370009A6A8A /* LoginView.swift */,
+				E69EDC4E2AB107E30021D1F1 /* HomeView.swift */,
 			);
 			path = SpendWise;
 			sourceTree = "<group>";
@@ -158,6 +161,7 @@
 				E665A9CE2AACED07009A6A8A /* RegisterView.swift in Sources */,
 				E6DBF2B52AA33BC1004A7B35 /* ContentView.swift in Sources */,
 				E665A9D02AACF370009A6A8A /* LoginView.swift in Sources */,
+				E69EDC4F2AB107E30021D1F1 /* HomeView.swift in Sources */,
 				E6DBF2B32AA33BC1004A7B35 /* SpendWiseApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

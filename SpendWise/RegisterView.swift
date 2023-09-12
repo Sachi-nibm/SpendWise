@@ -12,12 +12,15 @@ import Firebase
 
 struct RegisterView: View {
     
-    @State var username: String = ""
+    @State var email: String = ""
     @State var password: String = ""
     @State var confirmPassword: String = ""
     
+    @State var showAlert: Bool = false
+    @State var showSuccess: Bool = false
+    @State var errorMessage: String = ""
+    
     var body: some View {
-        // Reference: https://stackoverflow.com/a/60374737
         GeometryReader { geometry in
             ScrollView(.vertical) {
                 VStack {
@@ -43,10 +46,11 @@ struct RegisterView: View {
                         Text("Email")
                             .padding(EdgeInsets(top: 10, leading: 10, bottom: 0, trailing: 10))
                             .frame(maxWidth: .infinity, alignment: .leading)
-                        TextField("john@doe.com", text: $username)
+                        TextField("john@doe.com", text: $email)
                             .font(.title3)
                             .textInputAutocapitalization(.never)
                             .keyboardType(.emailAddress)
+                            .autocorrectionDisabled()
                             .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
                             .textFieldStyle(RoundedBorderTextFieldStyle())
                         Text("Password")
@@ -66,11 +70,35 @@ struct RegisterView: View {
                     }
                     
                     Button() {
-                        Auth.auth().createUser(withEmail: username, password: password) { (result, error) in
-                            if let _error = error {
-                                print(_error.localizedDescription )
-                            }else{
-                                print(result)
+                        let emailValidator = NSPredicate(format:"SELF MATCHES %@", "[A-Z0-9a-z.-_]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,3}")
+                        let emailValid = emailValidator.evaluate(with: email)
+                        if (!emailValid) {
+                            errorMessage = "Email is invalid. Please enter a valid email!"
+                            showAlert = true;
+                        } else if (password.trimmingCharacters(in: .whitespacesAndNewlines) == "") {
+                            errorMessage = "Password is empty. Please enter a valid password!"
+                            showAlert = true;
+                        } else if let _ = password.rangeOfCharacter(from: .whitespacesAndNewlines) {
+                            errorMessage = "Password is invalid. Password cannot contain whitespaces!"
+                            showAlert = true;
+                        } else if (password != confirmPassword) {
+                            errorMessage = "Password and Confirm Password does not match. Please enter same phrase for both fields!"
+                            showAlert = true;
+                        } else {
+                            Auth.auth().createUser(withEmail: email, password: password) { (result, error) in
+                                if let err = error as NSError? {
+                                    let errCode = AuthErrorCode(_nsError: err)
+                                    switch errCode.code {
+                                    case .accountExistsWithDifferentCredential, .credentialAlreadyInUse, .emailAlreadyInUse:
+                                        errorMessage = "Account already exists. Please login!"
+                                        showAlert = true;
+                                    default:
+                                        errorMessage = err.localizedDescription
+                                        showAlert = true;
+                                    }
+                                } else {
+                                    showSuccess = true
+                                }
                             }
                         }
                     } label: {
@@ -83,17 +111,12 @@ struct RegisterView: View {
                     .buttonStyle(.bordered)
                     .tint(.blue)
                     .cornerRadius(.infinity)
-                    .padding(EdgeInsets(top: 25, leading: 50, bottom: 0, trailing: 50))
-                    
-                    NavigationLink {
-                        RegisterView()
-                    } label: {
-                        NavigationLink(destination: RegisterView()) {
-                            Text("Login to an Existing Account")
-                                .bold()
-                                .foregroundColor(.blue)
-                                .padding(EdgeInsets(top: 10, leading: 0, bottom: 20, trailing: 0))
-                        }
+                    .padding(EdgeInsets(top: 25, leading: 50, bottom: 20, trailing: 50))
+                    .alert(isPresented: $showAlert) {
+                        Alert(title: Text("ERROR"), message: Text(errorMessage), dismissButton: .default(Text("OK")))
+                    }
+                    .alert(isPresented: $showSuccess) {
+                        Alert(title: Text("SUCCESS"), message: Text("User created successfully. Please login."), dismissButton: .default(Text("OK")))
                     }
                 }
                 .frame(minHeight: geometry.size.height, maxHeight: .infinity, alignment: .center)
@@ -101,6 +124,7 @@ struct RegisterView: View {
             }
             .frame(maxHeight: .infinity)
         }
+        .navigationBarTitle("Create Account", displayMode: .inline)
     }
 }
 
