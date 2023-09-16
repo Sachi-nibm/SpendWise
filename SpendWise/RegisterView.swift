@@ -8,9 +8,10 @@ import Foundation
 //
 
 import SwiftUI
-import Firebase
 
 struct RegisterView: View {
+    
+    @EnvironmentObject var userViewModel: UserViewModel
     
     @State var email: String = ""
     @State var password: String = ""
@@ -70,35 +71,12 @@ struct RegisterView: View {
                     }
                     
                     Button() {
-                        let emailValidator = NSPredicate(format:"SELF MATCHES %@", "[A-Z0-9a-z.-_]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,3}")
-                        let emailValid = emailValidator.evaluate(with: email)
-                        if (!emailValid) {
-                            errorMessage = "Email is invalid. Please enter a valid email!"
-                            showAlert = true;
-                        } else if (password.trimmingCharacters(in: .whitespacesAndNewlines) == "") {
-                            errorMessage = "Password is empty. Please enter a valid password!"
-                            showAlert = true;
-                        } else if let _ = password.rangeOfCharacter(from: .whitespacesAndNewlines) {
-                            errorMessage = "Password is invalid. Password cannot contain whitespaces!"
-                            showAlert = true;
-                        } else if (password != confirmPassword) {
-                            errorMessage = "Password and Confirm Password does not match. Please enter same phrase for both fields!"
-                            showAlert = true;
-                        } else {
-                            Auth.auth().createUser(withEmail: email, password: password) { (result, error) in
-                                if let err = error as NSError? {
-                                    let errCode = AuthErrorCode(_nsError: err)
-                                    switch errCode.code {
-                                    case .accountExistsWithDifferentCredential, .credentialAlreadyInUse, .emailAlreadyInUse:
-                                        errorMessage = "Account already exists. Please login!"
-                                        showAlert = true;
-                                    default:
-                                        errorMessage = err.localizedDescription
-                                        showAlert = true;
-                                    }
-                                } else {
-                                    showSuccess = true
-                                }
+                        userViewModel.register(email: email, password: password, confirmPassword: confirmPassword) { message in
+                            if let message = message {
+                                errorMessage = message
+                                showAlert = true
+                            } else {
+                                // register was successful
                             }
                         }
                     } label: {

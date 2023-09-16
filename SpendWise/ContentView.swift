@@ -6,30 +6,20 @@
 //
 
 import SwiftUI
-import Firebase
 
 struct ContentView: View {
     
-    @State var isLoggedIn: Bool = false;
+    @StateObject var userViewModel = UserViewModel()
     
     var body: some View {
         NavigationView {
-            if (isLoggedIn) {
+            if (userViewModel.isUserLoggedIn()) {
                 HomeView()
             } else {
                 LoginView()
             }
         }
-        .onAppear(perform: {
-            Auth.auth().addStateDidChangeListener() { auth, user in
-                if user != nil {
-                    print(user?.email!)
-                    isLoggedIn = true
-                } else {
-                    isLoggedIn = false
-                }
-            }
-        })
+        .environmentObject(userViewModel)
     }
     
     struct ContentView_Previews: PreviewProvider {
