@@ -9,17 +9,21 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @StateObject var userViewModel = UserViewModel()
+    @StateObject var sessionData = SessionData()
     
     var body: some View {
         NavigationView {
-            if (userViewModel.isUserLoggedIn()) {
-                HomeView()
+            if (sessionData.isUserLoggedIn()) {
+                if (sessionData.isUserInitialized()) {
+                    HomeView()
+                } else {
+                    BudgetSetupView()
+                }
             } else {
                 LoginView()
             }
         }
-        .environmentObject(userViewModel)
+        .environmentObject(sessionData)
     }
     
     struct ContentView_Previews: PreviewProvider {

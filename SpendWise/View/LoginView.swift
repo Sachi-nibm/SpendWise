@@ -11,13 +11,7 @@ import SwiftUI
 
 struct LoginView: View {
     
-    @EnvironmentObject var userViewModel: UserViewModel
-    
-    @State var email: String = ""
-    @State var password: String = ""
-    
-    @State var showAlert: Bool = false
-    @State var errorMessage: String = ""
+    @ObservedObject var userViewModel = UserViewModel()
     
     var body: some View {
         // Reference: https://stackoverflow.com/a/60374737
@@ -45,7 +39,7 @@ struct LoginView: View {
                         Text("Email")
                             .padding(EdgeInsets(top: 10, leading: 10, bottom: 0, trailing: 10))
                             .frame(maxWidth: .infinity, alignment: .leading)
-                        TextField("john@doe.com", text: $email)
+                        TextField("john@doe.com", text: $userViewModel.email)
                             .font(.title3)
                             .textInputAutocapitalization(.never)
                             .keyboardType(.emailAddress)
@@ -55,21 +49,14 @@ struct LoginView: View {
                         Text("Password")
                             .padding(EdgeInsets(top: 15, leading: 10, bottom: 0, trailing: 10))
                             .frame(maxWidth: .infinity, alignment: .leading)
-                        SecureField("•••••••", text: $password)
+                        SecureField("•••••••", text: $userViewModel.password)
                             .font(.title3)
                             .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
                             .textFieldStyle(RoundedBorderTextFieldStyle())
                     }
                     
                     Button() {
-                        userViewModel.logUserIn(email: email, password: password) { message in
-                            if let message = message {
-                                errorMessage = message
-                                showAlert = true
-                            } else {
-                                // Sign-in was successful
-                            }
-                        }
+                        userViewModel.logUserIn()
                     } label: {
                         Text("LOGIN")
                             .font(.title3)
@@ -81,8 +68,8 @@ struct LoginView: View {
                     .tint(.blue)
                     .cornerRadius(.infinity)
                     .padding(EdgeInsets(top: 25, leading: 50, bottom: 0, trailing: 50))
-                    .alert(isPresented: $showAlert) {
-                        Alert(title: Text("ERROR"), message: Text(errorMessage), dismissButton: .default(Text("OK")))
+                    .alert(isPresented: $userViewModel.showAlert) {
+                        Alert(title: Text("ERROR"), message: Text(userViewModel.errorMessage), dismissButton: .default(Text("OK")))
                     }
                     
                     NavigationLink {

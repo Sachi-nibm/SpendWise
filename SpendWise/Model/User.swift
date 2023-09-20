@@ -11,5 +11,6 @@ struct User: Identifiable {
     
     // Email
     var id: String
+    var categories: [String]
     
 }
