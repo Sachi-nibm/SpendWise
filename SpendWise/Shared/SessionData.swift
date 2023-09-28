@@ -29,15 +29,15 @@ class SessionData: ObservableObject {
         authStateListenerHandle = Auth.auth().addStateDidChangeListener { (_, user) in
             if let email = user?.email {
                 FireStoreUtil.assignEmail(email: email)
-                // TODO: do not push
-//                FireStoreUtil.loadDataObjects() { data, error in
-//                    if let error = error {
-//                        print(error)
-//                    } else {
-//                        let user = User(id: email, categories: data)
-//                        self.currentUser = user
-//                    }
-//                }
+                FireStoreUtil.loadDataObjects(email) { user, error in
+                    if let error = error {
+                        print(error)
+                    } else if let user = user {
+                        self.currentUser = user
+                    } else {
+                        print("Unexpected error!")
+                    }
+                }
                 let user = User(id: email, categories: [], balance: 0)
                 self.currentUser = user
             } else {

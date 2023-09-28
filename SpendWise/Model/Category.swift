@@ -11,14 +11,13 @@ struct Category: Identifiable {
     
     // Cat code
     var id: String
-    var isWeekly: Bool
     var label: String
     var colourCode: String
     var budget: Double
     
 }
 
-struct CategoryColors {
+struct CategoryData {
     
     static let categoryColors: [String: Color] = [
         "Blue": .blue,
@@ -32,8 +31,16 @@ struct CategoryColors {
         "Cyan": .cyan,
         "Brown": .brown,
         "Pink": .pink,
-        "Purple": .purple,
-        "Red": .red
+        "Purple": .purple
+    ]
+    
+    static let categories = [
+        Category(id: "save", label: "Saving", colourCode: "Green", budget: 0),
+        Category(id: "food", label: "Food & Beverage", colourCode: "Mint", budget: 0),
+        Category(id: "leisure", label: "Leisure", colourCode: "Orange", budget: 0),
+        Category(id: "maintain", label: "Maintenance", colourCode: "Teal", budget: 0),
+        Category(id: "daily", label: "Daily Expenses", colourCode: "Yellow", budget: 0),
+        Category(id: "other", label: "Other", colourCode: "Indigo", budget: 0)
     ]
     
 }

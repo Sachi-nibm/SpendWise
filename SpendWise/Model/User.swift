@@ -11,7 +11,7 @@ struct User: Identifiable {
     
     // Email
     var id: String
-    var categories: [String]
+    var categories: [Category]
     var balance: Double
     
 }

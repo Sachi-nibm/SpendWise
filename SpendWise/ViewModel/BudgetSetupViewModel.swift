@@ -13,18 +13,12 @@ class BudgetSetupViewModel: ObservableObject {
     @Published var balance: Double?
     @Published var categories: [Category] = []
     
+    @Published var isLoading: Bool = false
     @Published var showAlert: Bool = false
     @Published var errorMessage: String = ""
     
     func addInitialCategories() {
-        categories = [
-            Category(id: "save", isWeekly: false, label: "Saving", colourCode: "Green", budget: 0),
-            Category(id: "food", isWeekly: false, label: "Food & Beverage", colourCode: "Mint", budget: 0),
-            Category(id: "leisure", isWeekly: false, label: "Leisure", colourCode: "Orange", budget: 0),
-            Category(id: "maintain", isWeekly: false, label: "Maintenance", colourCode: "Teal", budget: 0),
-            Category(id: "daily", isWeekly: false, label: "Daily Expenses", colourCode: "Yellow", budget: 0),
-            Category(id: "other", isWeekly: false, label: "Other", colourCode: "Indigo", budget: 0)
-        ]
+        categories = CategoryData.categories
     }
     
     func saveBudget(_ balanceStr: String, completion: @escaping (_ isSuccess: Bool) -> Void) {
@@ -37,10 +31,9 @@ class BudgetSetupViewModel: ObservableObject {
             balance = Double(balanceStr)
             completion(true)
         }
-        // Save to firestore
     }
     
-    func saveData(_ budgetStrArray: [String], _ budgetPeriodArray: [String]) {
+    func saveData(_ budgetStrArray: [String], _ budgetPeriodArray: [String], completion: @escaping ([Category]?) -> Void) {
         var duplicateColor = false
         var collectedColors: [String] = []
         for category in categories {
@@ -55,13 +48,30 @@ class BudgetSetupViewModel: ObservableObject {
             errorMessage = "Duplicated colours found! As this might cause confusion in the dashboard please change."
             showAlert = true
         } else {
-            for (index, budgetStr) in budgetStrArray.enumerated() {
-                categories[index].budget = Double(budgetStr) ?? 0
+            for index in 0..<categories.count {
+                let weekly = (budgetPeriodArray[index] == "week")
+                if (weekly) {
+                    categories[index].budget = Double(budgetStrArray[index]) ?? 0
+                } else {
+                    if let value = Double(budgetStrArray[index]) {
+                        categories[index].budget = (value/4)
+                    } else {
+                        categories[index].budget = 0
+                    }
+                }
             }
-            for (index, budgetPeriod) in budgetPeriodArray.enumerated() {
-                categories[index].isWeekly = (budgetPeriod == "week")
+            isLoading = true
+            FireStoreUtil.saveBudget((balance ?? 0), categories) { error in
+                DispatchQueue.main.async {
+                    self.isLoading = false
+                    if let error = error {
+                        self.errorMessage = "\(error)"
+                        self.showAlert = true
+                    } else {
+                        completion(self.categories)
+                    }
+                }
             }
-            // Save to firestore
         }
     }
     

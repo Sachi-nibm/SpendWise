@@ -28,3 +28,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         return true
     }
 }
+
+enum SpendWiseError: Error {
+    case runtimeError(String)
+}

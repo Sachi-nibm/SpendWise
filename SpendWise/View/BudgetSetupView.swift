@@ -192,13 +192,15 @@ private struct SecondTabView: View {
 
 private struct ThirdTabView: View {
     
+    @EnvironmentObject var sessionData: SessionData
+    
     @Binding var tabIndex: Int
     @Binding var categories: [Category]
     @State var budgetViewModel: BudgetSetupViewModel
     
     @State private var budgetStr = Array(repeating: "0.0", count: 6)
     @State private var budgetPeriod = Array(repeating: "month", count: 6)
-    let colours = CategoryColors.categoryColors
+    let colours = CategoryData.categoryColors
     
     var body: some View {
         VStack() {
@@ -288,7 +290,11 @@ private struct ThirdTabView: View {
             )
             Spacer()
             Button() {
-                budgetViewModel.saveData(budgetPeriod, budgetPeriod)
+                budgetViewModel.saveData(budgetStr, budgetPeriod) { categories in
+                    if let categories = categories {
+                        sessionData.currentUser?.categories = categories
+                    }
+                }
             } label: {
                 Text("Save")
                     .padding(.leading)
