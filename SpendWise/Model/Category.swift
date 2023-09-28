@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct Category: Identifiable {
+struct Category: Identifiable, Hashable {
     
     // Cat code
     var id: String

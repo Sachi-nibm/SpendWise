@@ -13,17 +13,21 @@ struct ContentView: View {
     
     var body: some View {
         NavigationView {
-            if (sessionData.isUserLoggedIn()) {
-                if (sessionData.isUserInitialized()) {
-                    HomeView()
-                } else {
-                    BudgetSetupView()
-                }
+            if (sessionData.isUserLoggedIn() && sessionData.isUserInitialized()) {
+                HomeView()
+            } else if (sessionData.isUserLoggedIn()) {
+                BudgetSetupView()
             } else {
                 LoginView()
             }
         }
         .environmentObject(sessionData)
+        .alert(isPresented: $sessionData.showBaseError) {
+            Alert(
+                title: Text("ERROR"),
+                message: Text(sessionData.baseErrorMsg),
+                dismissButton: .default(Text("OK")))
+        }
     }
     
     struct ContentView_Previews: PreviewProvider {

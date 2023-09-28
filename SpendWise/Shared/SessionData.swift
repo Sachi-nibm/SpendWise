@@ -7,10 +7,17 @@
 
 import Foundation
 import Firebase
+import SwiftUI
 
 class SessionData: ObservableObject {
     
+    @AppStorage("isWeekly") var isWeekly = true
+    
     @Published var currentUser: User?
+    @Published var transactions: TransactionWrapper?
+    
+    @Published var showBaseError = false
+    @Published var baseErrorMsg = ""
     
     private var authStateListenerHandle: AuthStateDidChangeListenerHandle?
     
@@ -29,17 +36,21 @@ class SessionData: ObservableObject {
         authStateListenerHandle = Auth.auth().addStateDidChangeListener { (_, user) in
             if let email = user?.email {
                 FireStoreUtil.assignEmail(email: email)
-                FireStoreUtil.loadDataObjects(email) { user, error in
+                FireStoreUtil.loadDataObjects(email) { user, transactions, error in
                     if let error = error {
                         print(error)
+                        print("__AA__")
+                        DispatchQueue.main.async {
+                            self.showBaseError = true
+                            self.baseErrorMsg = error.localizedDescription
+                        }
                     } else if let user = user {
+                        self.transactions = transactions
                         self.currentUser = user
                     } else {
                         print("Unexpected error!")
                     }
                 }
-                let user = User(id: email, categories: [], balance: 0)
-                self.currentUser = user
             } else {
                 FireStoreUtil.removeEmail()
             }
@@ -69,6 +80,22 @@ class SessionData: ObservableObject {
             return !user.categories.isEmpty
         } else {
             return false
+        }
+    }
+    
+    func reloadUserData(completion: @escaping (Error?) -> Void) {
+        if let email = currentUser?.id {
+            FireStoreUtil.loadDataObjects(email) { user, transactions, error in
+                if let error = error {
+                    completion(error)
+                } else if let user = user {
+                    self.transactions = transactions
+                    self.currentUser = user
+                    completion(nil)
+                } else {
+                    completion(SpendWiseError.runtimeError("Unexpected error!"))
+                }
+            }
         }
     }
     

@@ -13,6 +13,11 @@
 		E69DC6772AB5F61A009A3D81 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = E69DC6762AB5F61A009A3D81 /* User.swift */; };
 		E69DC6792AB5F6B6009A3D81 /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E69DC6782AB5F6B6009A3D81 /* UserViewModel.swift */; };
 		E69EDC4F2AB107E30021D1F1 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E69EDC4E2AB107E30021D1F1 /* HomeView.swift */; };
+		E6A6BF5A2AC5582F009DB4A2 /* TabMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A6BF592AC5582F009DB4A2 /* TabMainView.swift */; };
+		E6A6BF5C2AC5588F009DB4A2 /* TabAddTransactionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A6BF5B2AC5588F009DB4A2 /* TabAddTransactionView.swift */; };
+		E6A6BF5E2AC5902A009DB4A2 /* TabAddTransactionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A6BF5D2AC5902A009DB4A2 /* TabAddTransactionViewModel.swift */; };
+		E6A6BF602AC59994009DB4A2 /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A6BF5F2AC59994009DB4A2 /* Transaction.swift */; };
+		E6A6BF622AC5C8D8009DB4A2 /* TabTransactionHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A6BF612AC5C8D8009DB4A2 /* TabTransactionHistory.swift */; };
 		E6CC4A4A2ABF465C00C9BE5A /* BudgetSetupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6CC4A492ABF465C00C9BE5A /* BudgetSetupViewModel.swift */; };
 		E6CC4A4C2ABF488A00C9BE5A /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6CC4A4B2ABF488A00C9BE5A /* Category.swift */; };
 		E6DBF2B32AA33BC1004A7B35 /* SpendWiseApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6DBF2B22AA33BC1004A7B35 /* SpendWiseApp.swift */; };
@@ -33,6 +38,11 @@
 		E69DC6762AB5F61A009A3D81 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		E69DC6782AB5F6B6009A3D81 /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
 		E69EDC4E2AB107E30021D1F1 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		E6A6BF592AC5582F009DB4A2 /* TabMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabMainView.swift; sourceTree = "<group>"; };
+		E6A6BF5B2AC5588F009DB4A2 /* TabAddTransactionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabAddTransactionView.swift; sourceTree = "<group>"; };
+		E6A6BF5D2AC5902A009DB4A2 /* TabAddTransactionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabAddTransactionViewModel.swift; sourceTree = "<group>"; };
+		E6A6BF5F2AC59994009DB4A2 /* Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
+		E6A6BF612AC5C8D8009DB4A2 /* TabTransactionHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabTransactionHistory.swift; sourceTree = "<group>"; };
 		E6CC4A492ABF465C00C9BE5A /* BudgetSetupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetSetupViewModel.swift; sourceTree = "<group>"; };
 		E6CC4A4B2ABF488A00C9BE5A /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		E6DBF2AF2AA33BC1004A7B35 /* SpendWise.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpendWise.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -63,6 +73,7 @@
 			children = (
 				E69DC6762AB5F61A009A3D81 /* User.swift */,
 				E6CC4A4B2ABF488A00C9BE5A /* Category.swift */,
+				E6A6BF5F2AC59994009DB4A2 /* Transaction.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -72,6 +83,7 @@
 			children = (
 				E69DC6782AB5F6B6009A3D81 /* UserViewModel.swift */,
 				E6CC4A492ABF465C00C9BE5A /* BudgetSetupViewModel.swift */,
+				E6A6BF5D2AC5902A009DB4A2 /* TabAddTransactionViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -123,6 +135,9 @@
 				E665A9CF2AACF370009A6A8A /* LoginView.swift */,
 				E69EDC4E2AB107E30021D1F1 /* HomeView.swift */,
 				E6E0C68C2ABB9D5000624992 /* BudgetSetupView.swift */,
+				E6A6BF592AC5582F009DB4A2 /* TabMainView.swift */,
+				E6A6BF5B2AC5588F009DB4A2 /* TabAddTransactionView.swift */,
+				E6A6BF612AC5C8D8009DB4A2 /* TabTransactionHistory.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -215,6 +230,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				E665A9CE2AACED07009A6A8A /* RegisterView.swift in Sources */,
+				E6A6BF5E2AC5902A009DB4A2 /* TabAddTransactionViewModel.swift in Sources */,
+				E6A6BF602AC59994009DB4A2 /* Transaction.swift in Sources */,
+				E6A6BF5A2AC5582F009DB4A2 /* TabMainView.swift in Sources */,
 				E6CC4A4C2ABF488A00C9BE5A /* Category.swift in Sources */,
 				E6DBF2B52AA33BC1004A7B35 /* ContentView.swift in Sources */,
 				E69DC6772AB5F61A009A3D81 /* User.swift in Sources */,
@@ -222,10 +240,12 @@
 				E6CC4A4A2ABF465C00C9BE5A /* BudgetSetupViewModel.swift in Sources */,
 				E665A9D02AACF370009A6A8A /* LoginView.swift in Sources */,
 				E6E0C6842ABB7EB500624992 /* SessionData.swift in Sources */,
+				E6A6BF5C2AC5588F009DB4A2 /* TabAddTransactionView.swift in Sources */,
 				E69EDC4F2AB107E30021D1F1 /* HomeView.swift in Sources */,
 				E69DC6792AB5F6B6009A3D81 /* UserViewModel.swift in Sources */,
 				E6DBF2B32AA33BC1004A7B35 /* SpendWiseApp.swift in Sources */,
 				E6E0C68D2ABB9D5000624992 /* BudgetSetupView.swift in Sources */,
+				E6A6BF622AC5C8D8009DB4A2 /* TabTransactionHistory.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
