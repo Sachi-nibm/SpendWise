@@ -24,6 +24,7 @@ struct TabSettingsView: View {
                         .font(.title3)
                         .frame(maxWidth: .infinity)
                         .tint(.primary)
+                        .foregroundColor(.primary)
                         .bold()
                     ,
                     content: {}
