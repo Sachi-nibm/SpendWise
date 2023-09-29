@@ -19,7 +19,7 @@ struct TabSettingsView: View {
             Form {
                 Section(
                     header:
-                        Text("example@gmail.co")
+                        Text(sessionData.currentUser?.id ?? "USER NOT FOUND")
                         .textCase(.none)
                         .font(.title3)
                         .frame(maxWidth: .infinity)
