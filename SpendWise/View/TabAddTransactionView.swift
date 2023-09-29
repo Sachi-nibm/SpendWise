@@ -20,7 +20,7 @@ struct TabAddTransactionView: View {
             VStack {
                 Text("AVAILABLE FUNDS")
                 HStack {
-                    Text("රු")
+                    Text("Rs")
                         .multilineTextAlignment(.leading)
                         .font(.title)
                     Text(String(format: "%.2f", sessionData.currentUser?.balance ?? 0))
@@ -154,7 +154,7 @@ struct TabAddTransactionView: View {
                             .bold()
                         Spacer()
                         HStack {
-                            Text("රු")
+                            Text("Rs")
                                 .multilineTextAlignment(.leading)
                                 .font(.title3)
                             TextField("0.0", text: $amountStr)

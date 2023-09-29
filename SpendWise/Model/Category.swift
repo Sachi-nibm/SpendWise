@@ -34,6 +34,15 @@ struct CategoryData {
         "Purple": .purple
     ]
     
+    static let categoryLabels: [String: String] = [
+        "save": "Saving",
+        "food": "Food & Beverage",
+        "leisure": "Leisure",
+        "maintain": "Maintenance",
+        "daily": "Daily Expenses",
+        "other": "Other"
+    ]
+    
     static let categories = [
         Category(id: "save", label: "Saving", colourCode: "Green", budget: 0),
         Category(id: "food", label: "Food & Beverage", colourCode: "Mint", budget: 0),

@@ -108,7 +108,7 @@ private struct SecondTabView: View {
                 .padding(.horizontal, 50)
                 .multilineTextAlignment(.center)
             HStack {
-                Text("රු")
+                Text("Rs")
                     .multilineTextAlignment(.leading)
                     .font(.title)
                 TextField("0.00", text: $balanceStr)
@@ -233,7 +233,7 @@ private struct ThirdTabView: View {
                             .padding(.leading, -10)
                             Spacer()
                             HStack {
-                                Text("රු")
+                                Text("Rs")
                                     .multilineTextAlignment(.leading)
                                     .font(.title3)
                                 TextField("0.0", text: $budgetStr[index])

@@ -222,7 +222,8 @@ class FireStoreUtil {
                 isWeekly: UserDefaults.standard.bool(forKey: "isWeekly"),
                 totalIncome: totIncome,
                 totalExpense: totExpense,
-                transactions: transactions
+                transactions: transactions,
+                expenseForCategory: categoryExpense
             )
             return transactionWrapper
         } else {
