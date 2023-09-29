@@ -19,6 +19,8 @@ class SessionData: ObservableObject {
     @Published var showBaseError = false
     @Published var baseErrorMsg = ""
     
+    @Published var isLoading = true
+    
     private var authStateListenerHandle: AuthStateDidChangeListenerHandle?
     
     
@@ -33,6 +35,7 @@ class SessionData: ObservableObject {
     }
     
     func addAuthStateListener() {
+        isLoading = true
         authStateListenerHandle = Auth.auth().addStateDidChangeListener { (_, user) in
             if let email = user?.email {
                 FireStoreUtil.assignEmail(email: email)
@@ -43,6 +46,7 @@ class SessionData: ObservableObject {
                         DispatchQueue.main.async {
                             self.showBaseError = true
                             self.baseErrorMsg = error.localizedDescription
+                            self.isLoading = false
                         }
                     } else if let user = user {
                         self.transactions = transactions
@@ -53,6 +57,7 @@ class SessionData: ObservableObject {
                 }
             } else {
                 FireStoreUtil.removeEmail()
+                self.isLoading = false
             }
         }
     }
@@ -75,8 +80,6 @@ class SessionData: ObservableObject {
     
     func isUserInitialized() -> Bool {
         if let user = currentUser {
-            print(user.categories)
-            print(!user.categories.isEmpty)
             return !user.categories.isEmpty
         } else {
             return false
@@ -107,6 +110,17 @@ class SessionData: ObservableObject {
         } catch _ as NSError {
             completion("Error occurred. Please try again later.")
         }
+    }
+    
+    func getColorForCategoryCode(_ code: String) -> Color {
+        var colour = Color.gray
+        for cat in currentUser?.categories ?? [] {
+            if cat.id == code {
+                colour = CategoryData.categoryColors[cat.colourCode] ?? colour
+                break
+            }
+        }
+        return colour
     }
     
 }

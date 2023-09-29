@@ -65,11 +65,19 @@ struct RegisterView: View {
                     Button() {
                         userViewModel.register()
                     } label: {
-                        Text("REGISTER")
-                            .font(.title3)
-                            .frame(maxWidth: .infinity)
-                            .padding(EdgeInsets(top: 5, leading: 0, bottom: 5, trailing: 0))
-                            .bold()
+                        if (userViewModel.isLoading) {
+                            ProgressView()
+                                .tint(.primary)
+                                .padding(.horizontal, 50)
+                                .padding(.vertical, 10)
+                                .font(.title3)
+                        } else {
+                            Text("REGISTER")
+                                .font(.title3)
+                                .frame(maxWidth: .infinity)
+                                .padding(EdgeInsets(top: 5, leading: 0, bottom: 5, trailing: 0))
+                                .bold()
+                        }
                     }
                     .buttonStyle(.bordered)
                     .tint(.blue)
@@ -84,6 +92,7 @@ struct RegisterView: View {
             }
             .frame(maxHeight: .infinity)
         }
+        .animation(.easeIn, value: userViewModel.isLoading)
         .navigationBarTitle("Create Account", displayMode: .inline)
     }
 }

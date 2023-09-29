@@ -11,6 +11,7 @@ import SwiftUI
 
 struct LoginView: View {
     
+    @EnvironmentObject var sessionData: SessionData
     @ObservedObject var userViewModel = UserViewModel()
     
     var body: some View {
@@ -58,11 +59,19 @@ struct LoginView: View {
                     Button() {
                         userViewModel.logUserIn()
                     } label: {
-                        Text("LOGIN")
-                            .font(.title3)
-                            .frame(maxWidth: .infinity)
-                            .padding(EdgeInsets(top: 5, leading: 0, bottom: 5, trailing: 0))
-                            .bold()
+                        if (sessionData.isLoading || userViewModel.isLoading) {
+                            ProgressView()
+                                .tint(.primary)
+                                .padding(.horizontal, 50)
+                                .padding(.vertical, 10)
+                                .font(.title3)
+                        } else {
+                            Text("LOGIN")
+                                .font(.title3)
+                                .frame(maxWidth: .infinity)
+                                .padding(EdgeInsets(top: 5, leading: 0, bottom: 5, trailing: 0))
+                                .bold()
+                        }
                     }
                     .buttonStyle(.bordered)
                     .tint(.blue)
@@ -89,6 +98,9 @@ struct LoginView: View {
             }
             .frame(maxHeight: .infinity)
         }
+        .animation(.easeIn, value: sessionData.isLoading)
+        .animation(.easeIn, value: userViewModel.isLoading)
+        .disabled(sessionData.isLoading || userViewModel.isLoading)
         .navigationTitle("Login")
         .navigationBarHidden(true)
     }

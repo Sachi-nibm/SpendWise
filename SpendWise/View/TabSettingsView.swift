@@ -14,9 +14,12 @@ struct TabSettingsView: View {
     @State var budget = "month"
     @State var showingAlert = false
     
+    @State var tabIndex = false
+    @State var navigateToColorEditor = false
+    
     var body: some View {
         VStack {
-            Form {
+            List {
                 Section(
                     header:
                         Text(sessionData.currentUser?.id ?? "USER NOT FOUND")
@@ -30,15 +33,6 @@ struct TabSettingsView: View {
                     content: {}
                 )
                 .padding(.top)
-                
-                //                Section(content: {
-                //                    HStack{
-                //                        Image(systemName: "tray.2")
-                //                        Text("Category Settings")
-                //                        Spacer()
-                //                        Image(systemName: "chevron.forward")
-                //                    }
-                //                })
                 
                 Section(content: {
                     HStack{
@@ -67,6 +61,14 @@ struct TabSettingsView: View {
                         })
                     }
                 })
+//                Section() {
+//                    HStack{
+//                        Image(systemName: "paintpalette")
+//                        Text("Category Colours")
+//                        Spacer()
+//                        NavigationLink("", destination: BudgetSetupView())
+//                    }
+//                }
             }
             HStack {
                 Button() {

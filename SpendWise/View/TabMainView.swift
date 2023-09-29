@@ -90,8 +90,8 @@ struct TabMainView: View {
                                             Text("Budget : ")
                                                 .font(.caption)
                                             Text("Rs \((category.budget == 0) ? "N/A" : String(format: "%.0f", category.budget))")
-                                            .font(.caption)
-                                            .bold()
+                                                .font(.caption)
+                                                .bold()
                                         }
                                         HStack(spacing: 0) {
                                             Text("Spent : ")
@@ -104,10 +104,22 @@ struct TabMainView: View {
                                 }
                                 .padding(.leading, 5)
                             }
-                            .padding(.all, 10)
-                            .background((gaugeVal > 90) ? Color.red.opacity(0.1) : nil)
+                            .padding(5)
+                            .background(Color(.systemBackground).opacity(0.7))
+                            .cornerRadius(15)
+                            .padding(5)
+                            .background(CategoryData.categoryColors[category.colourCode])
                             .background(Color(.systemBackground))
                             .cornerRadius(20)
+                            .overlay(
+                                (
+                                    (gaugeVal > 90) ?
+                                    RoundedRectangle(cornerRadius: 20)
+                                        .stroke(Color.red, lineWidth: 4)
+                                    :
+                                        nil
+                                ), alignment: .top
+                            )
                             .padding(.vertical, 5)
                             .padding(.horizontal, 10)
                         }

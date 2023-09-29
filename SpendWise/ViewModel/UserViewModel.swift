@@ -14,6 +14,7 @@ class UserViewModel: ObservableObject {
     @Published var password: String = ""
     @Published var confirmPassword: String = ""
     
+    @Published var isLoading: Bool = false
     @Published var showAlert: Bool = false
     @Published var errorMessage: String = ""
     
@@ -34,19 +35,21 @@ class UserViewModel: ObservableObject {
             showAlert = true
         } else {
             // Reference https://stackoverflow.com/a/71917649
+            isLoading = true
             Auth.auth().createUser(withEmail: email, password: password) { (result, error) in
-                if let err = error as NSError? {
-                    let errCode = AuthErrorCode(_nsError: err)
-                    switch errCode.code {
-                    case .accountExistsWithDifferentCredential, .credentialAlreadyInUse, .emailAlreadyInUse:
-                        self.errorMessage = ("Account already exists. Please login!")
-                        self.showAlert = true
-                    default:
-                        self.errorMessage = (err.localizedDescription)
-                        self.showAlert = true
+                DispatchQueue.main.async {
+                    self.isLoading = false
+                    if let err = error as NSError? {
+                        let errCode = AuthErrorCode(_nsError: err)
+                        switch errCode.code {
+                        case .accountExistsWithDifferentCredential, .credentialAlreadyInUse, .emailAlreadyInUse:
+                            self.errorMessage = ("Account already exists. Please login!")
+                            self.showAlert = true
+                        default:
+                            self.errorMessage = (err.localizedDescription)
+                            self.showAlert = true
+                        }
                     }
-                } else {
-                    // completion(nil)
                 }
             }
         }
@@ -62,19 +65,21 @@ class UserViewModel: ObservableObject {
             errorMessage = ("Password is empty. Please enter a valid password!")
             showAlert = true
         } else {
+            isLoading = true
             Auth.auth().signIn(withEmail: email, password: password) { (result, error) in
-                if let err = error as NSError? {
-                    let errCode = AuthErrorCode(_nsError: err)
-                    switch errCode.code {
-                    case .wrongPassword:
-                        self.errorMessage = ("Password is incorrect. Please try again.")
-                        self.showAlert = true
-                    default:
-                        self.errorMessage = (err.localizedDescription)
-                        self.showAlert = true
+                DispatchQueue.main.async {
+                    self.isLoading = false
+                    if let err = error as NSError? {
+                        let errCode = AuthErrorCode(_nsError: err)
+                        switch errCode.code {
+                        case .wrongPassword:
+                            self.errorMessage = ("Password is incorrect. Please try again.")
+                            self.showAlert = true
+                        default:
+                            self.errorMessage = (err.localizedDescription)
+                            self.showAlert = true
+                        }
                     }
-                } else {
-                    //completion(nil)
                 }
             }
         }

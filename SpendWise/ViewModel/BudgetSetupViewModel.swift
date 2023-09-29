@@ -16,6 +16,7 @@ class BudgetSetupViewModel: ObservableObject {
     @Published var isLoading: Bool = false
     @Published var showAlert: Bool = false
     @Published var errorMessage: String = ""
+    @Published var updateMode: Bool = false
     
     func addInitialCategories() {
         categories = CategoryData.categories
@@ -75,4 +76,11 @@ class BudgetSetupViewModel: ObservableObject {
         }
     }
     
+    static func getSetupViewModel(_ sessionData: SessionData) -> BudgetSetupViewModel {
+        let budgetViewModel = BudgetSetupViewModel()
+        budgetViewModel.categories = sessionData.currentUser?.categories ?? []
+        budgetViewModel.balance = (sessionData.currentUser?.balance ?? 0)
+        budgetViewModel.balanceStr = String(format: "%.2f", (sessionData.currentUser?.balance ?? 0))
+        return budgetViewModel
+    }
 }

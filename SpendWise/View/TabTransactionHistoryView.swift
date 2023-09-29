@@ -69,86 +69,96 @@ struct TabTransactionHistoryView: View {
                 }
                 Section() {
                     ForEach(transactions.indices, id: \.self) { index in
-                        if (transactions[index].isExpense) {
-                            HStack{
-                                Image(systemName: "tray.and.arrow.up.fill")
-                                    .resizable()
-                                    .frame(width: 25, height: 25)
-                                    .padding(.all, 4)
-                                    .cornerRadius(0.5)
-                                    .foregroundColor(Color.red)
-                                    .overlay(RoundedRectangle(cornerRadius: 5)
-                                        .stroke(Color.red, lineWidth: 2)
-                                    )
-                                    .background(Color.red.opacity(0.1))
-                                    .padding(5)
-                                    .padding(.vertical, 5)
-                                Spacer()
-                                VStack {
-                                    Text(formatDateToString(transactions[index].date))
-                                        .font(.caption)
-                                    Text(CategoryData.categoryLabels[transactions[index].expenseCategory ?? "X"] ?? "EXPENSE")
+                        NavigationLink(destination: TransactionDetailView(transaction: transactions[index])) {
+                            if (transactions[index].isExpense) {
+                                HStack(spacing: 0) {
+                                    RoundedRectangle(cornerRadius: 10)
+                                        .padding(.vertical, 10)
+                                        .frame(width: 8, alignment: .top)
+                                        .foregroundColor(sessionData.getColorForCategoryCode(transactions[index].expenseCategory ?? "X"))
+                                        .padding(.trailing, 5)
+                                    Image(systemName: "tray.and.arrow.up.fill")
+                                        .resizable()
+                                        .frame(width: 25, height: 25)
+                                        .padding(.all, 4)
+                                        .cornerRadius(0.5)
+                                        .foregroundColor(Color.red)
+                                        .overlay(RoundedRectangle(cornerRadius: 5)
+                                            .stroke(Color.red, lineWidth: 2)
+                                        )
+                                        .background(Color.red.opacity(0.1))
+                                        .padding(5)
+                                    Spacer()
+                                    VStack {
+                                        Text(formatDateToString(transactions[index].date))
+                                            .font(.caption)
+                                        Text(CategoryData.categoryLabels[transactions[index].expenseCategory ?? "X"] ?? "EXPENSE")
+                                    }
+                                    Spacer()
+                                    Text(String(format: "%.2f", transactions[index].amount))
+                                        .padding(.horizontal, 5)
+                                        .bold()
                                 }
-                                Spacer()
-                                Text(String(format: "%.2f", transactions[index].amount))
-                                    .padding(.horizontal, 5)
-                                    .bold()
-                            }
-                            .overlay(
-                                (
-                                    index != 0 ?
-                                        Rectangle()
-                                        .frame(width: nil, height: 1, alignment: .top)
-                                        .foregroundColor(Color.gray.opacity(0.3))
-                                    :
-                                        nil
-                                ), alignment: .top
-                            )
-                            .padding(.bottom, 20)
-                            .zIndex(2)
-                        } else {
-                            HStack{
-                                Image(systemName: "tray.and.arrow.down.fill")
-                                    .resizable()
-                                    .frame(width: 25, height: 25)
-                                    .padding(.all, 4)
-                                    .cornerRadius(0.5)
-                                    .foregroundColor(Color.green)
-                                    .overlay(RoundedRectangle(cornerRadius: 5)
-                                        .stroke(Color.green, lineWidth: 2)
-                                    )
-                                    .background(Color.green.opacity(0.1))
-                                    .padding(5)
-                                    .padding(.vertical, 5)
-                                Spacer()
-                                VStack {
-                                    Text(formatDateToString(transactions[index].date))
-                                        .font(.caption)
-                                    Text("INCOME")
+                                .alignmentGuide(.listRowSeparatorLeading) { viewDimensions in
+                                    return 0
                                 }
-                                Spacer()
-                                Text(String(format: "%.2f", transactions[index].amount))
-                                    .padding(.horizontal, 5)
-                                    .bold()
+//                                .overlay(
+//                                    (
+//                                        index != 0 ?
+//                                        Rectangle()
+//                                            .frame(width: nil, height: 1, alignment: .top)
+//                                            .foregroundColor(Color.gray.opacity(0.3))
+//                                        :
+//                                            nil
+//                                    ), alignment: .top
+//                                )
+                            } else {
+                                HStack(spacing: 0) {
+                                    RoundedRectangle(cornerRadius: 10)
+                                        .padding(.vertical, 10)
+                                        .frame(width: 8, alignment: .top)
+                                        .foregroundColor(.primary)
+                                        .padding(.trailing, 5)
+                                    Image(systemName: "tray.and.arrow.down.fill")
+                                        .resizable()
+                                        .frame(width: 25, height: 25)
+                                        .padding(.all, 4)
+                                        .cornerRadius(0.5)
+                                        .foregroundColor(Color.green)
+                                        .overlay(RoundedRectangle(cornerRadius: 5)
+                                            .stroke(Color.green, lineWidth: 2)
+                                        )
+                                        .background(Color.green.opacity(0.1))
+                                        .padding(5)
+                                    Spacer()
+                                    VStack {
+                                        Text(formatDateToString(transactions[index].date))
+                                            .font(.caption)
+                                        Text("INCOME")
+                                    }
+                                    Spacer()
+                                    Text(String(format: "%.2f", transactions[index].amount))
+                                        .padding(.horizontal, 5)
+                                        .bold()
+                                }
+                                .alignmentGuide(.listRowSeparatorLeading) { viewDimensions in
+                                    return 0
+                                }
+//                                .overlay(
+//                                    (
+//                                        index != 0 ?
+//                                        Rectangle()
+//                                            .frame(width: nil, height: 1, alignment: .top)
+//                                            .foregroundColor(Color.gray.opacity(0.3))
+//                                        :
+//                                            nil
+//                                    ), alignment: .top
+//                                )
                             }
-                            .overlay(
-                                (
-                                    index != 0 ?
-                                        Rectangle()
-                                        .frame(width: nil, height: 1, alignment: .top)
-                                        .foregroundColor(Color.gray.opacity(0.3))
-                                    :
-                                        nil
-                                ), alignment: .top
-                            )
-                            .padding(.bottom, 20)
-                            .zIndex(2)
                         }
                     }
                 }
-                .listRowInsets(EdgeInsets(top: 0, leading: 10, bottom: -20, trailing: 10))
             }
-            .listStyle(.insetGrouped)
         }
     }
     
