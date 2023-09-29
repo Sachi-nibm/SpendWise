@@ -11,8 +11,8 @@ struct TabMainView: View {
     
     @EnvironmentObject var sessionData: SessionData
     
-    @State var minValue = 0
-    @State var maxValue = 100
+    var minValue = 0
+    var maxValue = 100
     let gradient = Gradient(colors: [.green, .green, .green, .green, .yellow, .orange, .red])
     
     var body: some View {
@@ -40,6 +40,10 @@ struct TabMainView: View {
             GeometryReader { geometry in
                 ScrollView(.vertical) {
                     VStack {
+                        Text(sessionData.isWeekly ? "WEEKLY BUDGET" : "MONTHLY BUDGET")
+                            .font(.subheadline)
+                            .bold()
+                            .frame(maxWidth: .infinity, alignment: .center)
                         ForEach(sessionData.currentUser?.categories ?? [], id: \.id) { category in
                             let expense = sessionData.transactions?.expenseForCategory[category.id] ?? 0
                             let gaugeVal = calcPercentage(category.budget, expense)

@@ -47,6 +47,7 @@ class FireStoreUtil {
                     let transactions = FireStoreUtil.getTransactionsForHome()
                     let balance: Double = (((snapshot.value as? NSDictionary)?["balance"] as? Double) ?? 0)
                     var categories: [Category] = []
+                    let isWeekly = UserDefaults.standard.bool(forKey: "isWeekly")
                     for cat in CategoryData.categories {
                         var category = cat
                         let categoryData = snapshot.childSnapshot(forPath: cat.id).value as? NSDictionary
@@ -54,7 +55,7 @@ class FireStoreUtil {
                         let catColor: String? = categoryData?["colorCode"] as? String
                         if let catBudget = catBudget, let catColor = catColor {
                             category.colourCode = catColor
-                            category.budget = catBudget
+                            category.budget = (isWeekly ? catBudget : (catBudget * 4))
                             categories.append(category)
                         }
                     }

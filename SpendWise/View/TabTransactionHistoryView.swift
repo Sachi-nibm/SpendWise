@@ -1,5 +1,5 @@
 //
-//  TabTransactionHistory.swift
+//  TabTransactionHistoryView.swift
 //  SpendWise
 //
 //  Created by Sachini Perera on 2023-09-28.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct TabTransactionHistory: View {
+struct TabTransactionHistoryView: View {
     
     @EnvironmentObject var sessionData: SessionData
     
@@ -162,6 +162,6 @@ struct TabTransactionHistory: View {
 
 struct TabTransactionHistory_Previews: PreviewProvider {
     static var previews: some View {
-        TabTransactionHistory()
+        TabTransactionHistoryView()
     }
 }

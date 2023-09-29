@@ -26,8 +26,11 @@ struct HomeView: View {
                 TabAddTransactionView()
                     .tag(1)
                 
-                TabTransactionHistory()
+                TabTransactionHistoryView()
                     .tag(2)
+                
+                TabSettingsView()
+                    .tag(3)
                 
             }
             .animation(.easeIn, value: currentTabIndex)
