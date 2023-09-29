@@ -31,7 +31,7 @@ struct RegisterView: View {
                     Text("your personal budget planner")
                         .font(.subheadline)
                         .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
-                    Text("Please register for a more personalised experience")
+                    Text("Register")
                         .font(.subheadline)
                         .padding(EdgeInsets(top: 10, leading: 0, bottom: 0, trailing: 0))
                     
