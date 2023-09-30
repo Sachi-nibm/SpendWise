@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E6620DC92AC82BEF009914CF /* SplashScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6620DC82AC82BEF009914CF /* SplashScreenView.swift */; };
 		E665A9CE2AACED07009A6A8A /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E665A9CD2AACED07009A6A8A /* RegisterView.swift */; };
 		E665A9D02AACF370009A6A8A /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E665A9CF2AACF370009A6A8A /* LoginView.swift */; };
 		E68B570A2AA8D94A0080B6EA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E68B57092AA8D9490080B6EA /* GoogleService-Info.plist */; };
@@ -35,6 +36,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E6620DC82AC82BEF009914CF /* SplashScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenView.swift; sourceTree = "<group>"; };
 		E665A9CD2AACED07009A6A8A /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 		E665A9CF2AACF370009A6A8A /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		E68B57092AA8D9490080B6EA /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -147,6 +149,7 @@
 				E6A6BF632AC684E2009DB4A2 /* TabSettingsView.swift */,
 				E6A6BF672AC774E7009DB4A2 /* TransactionDetailView.swift */,
 				E6A6BF6B2AC795A3009DB4A2 /* UpdateBudgetView.swift */,
+				E6620DC82AC82BEF009914CF /* SplashScreenView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -252,6 +255,7 @@
 				E6A6BF5C2AC5588F009DB4A2 /* TabAddTransactionView.swift in Sources */,
 				E69EDC4F2AB107E30021D1F1 /* HomeView.swift in Sources */,
 				E6A6BF682AC774E7009DB4A2 /* TransactionDetailView.swift in Sources */,
+				E6620DC92AC82BEF009914CF /* SplashScreenView.swift in Sources */,
 				E69DC6792AB5F6B6009A3D81 /* UserViewModel.swift in Sources */,
 				E6DBF2B32AA33BC1004A7B35 /* SpendWiseApp.swift in Sources */,
 				E6E0C68D2ABB9D5000624992 /* BudgetSetupView.swift in Sources */,

@@ -16,6 +16,7 @@ class SessionData: ObservableObject {
     @Published var currentUser: User?
     @Published var transactions: TransactionWrapper?
     
+    @Published var applicationInitializing = true
     @Published var showBaseError = false
     @Published var baseErrorMsg = ""
     
@@ -41,23 +42,35 @@ class SessionData: ObservableObject {
                 FireStoreUtil.assignEmail(email: email)
                 FireStoreUtil.loadDataObjects(email) { user, transactions, error in
                     if let error = error {
-                        print(error)
-                        print("__AA__")
                         DispatchQueue.main.async {
                             self.showBaseError = true
                             self.baseErrorMsg = error.localizedDescription
                             self.isLoading = false
                         }
                     } else if let user = user {
-                        self.transactions = transactions
-                        self.currentUser = user
+                        DispatchQueue.main.async {
+                            self.transactions = transactions
+                            self.currentUser = user
+                        }
                     } else {
                         print("Unexpected error!")
+                    }
+                    Task {
+                        try await Task.sleep(nanoseconds: 1_500_000_000)
+                        DispatchQueue.main.async {
+                            self.applicationInitializing = false
+                        }
                     }
                 }
             } else {
                 FireStoreUtil.removeEmail()
                 self.isLoading = false
+                Task {
+                    try await Task.sleep(nanoseconds: 2_500_000_000)
+                    DispatchQueue.main.async {
+                        self.applicationInitializing = false
+                    }
+                }
             }
         }
     }

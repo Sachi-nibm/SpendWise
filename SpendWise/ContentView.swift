@@ -13,7 +13,9 @@ struct ContentView: View {
     
     var body: some View {
         NavigationView {
-            if (sessionData.isUserLoggedIn() && sessionData.isUserInitialized()) {
+            if sessionData.applicationInitializing {
+                SplashScreenView()
+            } else if (sessionData.isUserLoggedIn() && sessionData.isUserInitialized()) {
                 HomeView()
             } else if (sessionData.isUserLoggedIn()) {
                 BudgetSetupView()
