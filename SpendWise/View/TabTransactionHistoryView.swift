@@ -11,14 +11,17 @@ struct TabTransactionHistoryView: View {
     
     @EnvironmentObject var sessionData: SessionData
     
-    @State var balance = 3500
     @State var startDate = Date()
     @State var endDate = Date()
+    
+    @State var totIncome: Double = 0
+    @State var totExpense: Double = 0
     
     @State var transactions: [Transaction] = []
     
     init() {
         transactions = FireStoreUtil.getTransactionsForDuration(startDate, endDate)?.transactions ?? []
+        calculateTotal()
     }
     
     var body: some View {
@@ -35,6 +38,7 @@ struct TabTransactionHistoryView: View {
                     .labelsHidden()
                     .onChange(of: startDate, perform: { value in
                         transactions = FireStoreUtil.getTransactionsForDuration(startDate, endDate)?.transactions ?? []
+                        calculateTotal()
                     });
                 }
                 Spacer()
@@ -48,11 +52,30 @@ struct TabTransactionHistoryView: View {
                     .labelsHidden()
                     .onChange(of: endDate, perform: { value in
                         transactions = FireStoreUtil.getTransactionsForDuration(startDate, endDate)?.transactions ?? []
+                        calculateTotal()
                     });
                 }
                 Spacer()
             }
-            .padding(.vertical, 10)
+            
+            HStack {
+                Spacer()
+                Text("Income: ")
+                Text(String(format: "%.2f", totIncome))
+                    .bold()
+                    .foregroundColor(.green)
+                Spacer()
+                Text("|")
+                    .bold()
+                Spacer()
+                Text("Expense: ")
+                Text(String(format: "%.2f", totExpense))
+                    .bold()
+                    .foregroundColor(.red)
+                Spacer()
+            }
+            .padding(.top, 5)
+            .padding(.bottom, 5)
             
             List {
                 if transactions.isEmpty {
@@ -142,6 +165,7 @@ struct TabTransactionHistoryView: View {
         }
         .onAppear() {
             transactions = FireStoreUtil.getTransactionsForDuration(startDate, endDate)?.transactions ?? []
+            calculateTotal()
         }
     }
     
@@ -150,6 +174,18 @@ struct TabTransactionHistoryView: View {
         let formatter = DateFormatter()
         formatter.dateFormat = "dd/MM/yyyy"
         return formatter.string(from: date)
+    }
+    
+    func calculateTotal() {
+        totExpense = 0
+        totIncome = 0
+        for transaction in transactions {
+            if (transaction.isExpense) {
+                totExpense += transaction.amount
+            } else {
+                totIncome += transaction.amount
+            }
+        }
     }
 }
 

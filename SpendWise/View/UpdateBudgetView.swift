@@ -22,7 +22,7 @@ struct UpdateBudgetView: View {
     let colours = CategoryData.categoryColors
     
     init(_ sessionDataIn: SessionData) {
-        var localBudget = BudgetSetupViewModel()
+        let localBudget = BudgetSetupViewModel()
         localBudget.addInitialCategories()
         if let currentUser = sessionDataIn.currentUser {
             print("currentUser")
