@@ -15,6 +15,7 @@ struct TabMainView: View {
     var maxValue = 100
     let gradient = Gradient(colors: [.green, .green, .green, .green, .yellow, .orange, .red])
     
+    // Home view of main tabview
     var body: some View {
         VStack {
             Text("AVAILABLE FUNDS")
@@ -44,6 +45,8 @@ struct TabMainView: View {
                             .font(.subheadline)
                             .bold()
                             .frame(maxWidth: .infinity, alignment: .center)
+                        
+                        // Dynamically generate categories as home dashboard
                         ForEach(sessionData.currentUser?.categories ?? [], id: \.id) { category in
                             let expense = sessionData.transactions?.expenseForCategory[category.id] ?? 0
                             let gaugeVal = calcPercentage(category.budget, expense)
@@ -111,6 +114,7 @@ struct TabMainView: View {
                             .background(CategoryData.categoryColors[category.colourCode])
                             .background(Color(.systemBackground))
                             .cornerRadius(20)
+                            // Add red outline if the expense is greater than 90% of the budget
                             .overlay(
                                 (
                                     (gaugeVal > 90) ?

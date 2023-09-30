@@ -9,8 +9,10 @@ import Foundation
 import Firebase
 import SwiftUI
 
+// Class which is used as environment variable
 class SessionData: ObservableObject {
     
+    // Store default display type in UserDefault dictionary
     @AppStorage("isWeekly") var isWeekly = true
     
     @Published var currentUser: User?
@@ -35,6 +37,7 @@ class SessionData: ObservableObject {
         removeAuthStateListener()
     }
     
+    // Listen for user login logout changes. Also handle automatic login
     func addAuthStateListener() {
         isLoading = true
         authStateListenerHandle = Auth.auth().addStateDidChangeListener { (_, user) in
@@ -75,6 +78,7 @@ class SessionData: ObservableObject {
         }
     }
     
+    // Remove the listener on destroy to save resources
     func removeAuthStateListener() {
         if let handle = authStateListenerHandle {
             Auth.auth().removeStateDidChangeListener(handle)
@@ -91,6 +95,7 @@ class SessionData: ObservableObject {
         }
     }
     
+    // Check if user has created a budget
     func isUserInitialized() -> Bool {
         if let user = currentUser {
             return !user.categories.isEmpty
@@ -99,6 +104,7 @@ class SessionData: ObservableObject {
         }
     }
     
+    // Reload user data from firebase
     func reloadUserData(completion: @escaping (Error?) -> Void) {
         if let email = currentUser?.id {
             FireStoreUtil.loadDataObjects(email) { user, transactions, error in
@@ -125,6 +131,7 @@ class SessionData: ObservableObject {
         }
     }
     
+    // Get user selected colour for category
     func getColorForCategoryCode(_ code: String) -> Color {
         var colour = Color.gray
         for cat in currentUser?.categories ?? [] {

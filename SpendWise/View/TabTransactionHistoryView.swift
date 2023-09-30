@@ -30,6 +30,7 @@ struct TabTransactionHistoryView: View {
                 Spacer()
                 VStack(spacing: 5) {
                     Text("FROM")
+                    // Data is filtered on change of dates
                     DatePicker(selection: $startDate, in: ...Date.now, displayedComponents: .date) {
                         Text("Date")
                     }
@@ -91,8 +92,10 @@ struct TabTransactionHistoryView: View {
                     ) {}
                 }
                 Section() {
+                    // Dynamically generate transactions
                     ForEach(transactions.indices, id: \.self) { index in
                         NavigationLink(destination: TransactionDetailView(transaction: transactions[index])) {
+                            // Switch between expenses and incomes
                             if (transactions[index].isExpense) {
                                 HStack(spacing: 0) {
                                     RoundedRectangle(cornerRadius: 10)
@@ -163,6 +166,7 @@ struct TabTransactionHistoryView: View {
                 }
             }
         }
+        // Reload data on view appear
         .onAppear() {
             transactions = FireStoreUtil.getTransactionsForDuration(startDate, endDate)?.transactions ?? []
             calculateTotal()

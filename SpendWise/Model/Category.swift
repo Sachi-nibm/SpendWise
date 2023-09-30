@@ -9,7 +9,7 @@ import SwiftUI
 
 struct Category: Identifiable, Hashable {
     
-    // Cat code
+    // Category code
     var id: String
     var label: String
     var colourCode: String
@@ -17,6 +17,7 @@ struct Category: Identifiable, Hashable {
     
 }
 
+// Store category related maps and all categories required for operations
 struct CategoryData {
     
     static let categoryColors: [String: Color] = [

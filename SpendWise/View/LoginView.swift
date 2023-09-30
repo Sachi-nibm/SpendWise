@@ -59,6 +59,7 @@ struct LoginView: View {
                     Button() {
                         userViewModel.logUserIn()
                     } label: {
+                        // display a spinner until data is loaded
                         if (sessionData.isLoading || userViewModel.isLoading) {
                             ProgressView()
                                 .tint(.primary)
@@ -98,6 +99,7 @@ struct LoginView: View {
             }
             .frame(maxHeight: .infinity)
         }
+        // Add animations and disable screen until data loadings are done
         .animation(.easeIn, value: sessionData.isLoading)
         .animation(.easeIn, value: userViewModel.isLoading)
         .disabled(sessionData.isLoading || userViewModel.isLoading)

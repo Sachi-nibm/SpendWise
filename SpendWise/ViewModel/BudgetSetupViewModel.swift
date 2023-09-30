@@ -75,6 +75,7 @@ class BudgetSetupViewModel: ObservableObject {
         }
     }
     
+    // Create a budget view model from existing data which can be passed to load existing values
     static func getSetupViewModel(_ sessionData: SessionData) -> BudgetSetupViewModel {
         let budgetViewModel = BudgetSetupViewModel()
         budgetViewModel.categories = sessionData.currentUser?.categories ?? []

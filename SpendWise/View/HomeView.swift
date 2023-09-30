@@ -17,6 +17,7 @@ struct HomeView: View {
     
     var body: some View {
         
+        // Main tabview used for home
         VStack(spacing: 0) {
             TabView(selection: $currentTabIndex) {
                 
@@ -36,6 +37,7 @@ struct HomeView: View {
             .animation(.easeIn, value: currentTabIndex)
             .tabViewStyle(.page(indexDisplayMode: .never))
             
+            // Custom navigation bar is used as slidable navigation view does not have a navigation bar
             HStack {
                 Spacer()
                 VStack(spacing: 5) {
@@ -86,6 +88,7 @@ struct HomeView: View {
             )
         }
         .onAppear() {
+            // Reload data on appear of home
             sessionData.reloadUserData() { error in
                 if let _ = error {
                     print("Error in data reload!")

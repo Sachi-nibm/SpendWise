@@ -29,22 +29,4 @@ struct TransactionWrapper {
     var transactions: [Transaction]
     var expenseForCategory: [String:Double]
     
-//    init() {
-//        firstDate = Date()
-//        lastDate = Date()
-//        isWeekly = false
-//        totalIncome = 0
-//        totalExpense = 0
-//        transactions = []
-//    }
-//
-//    init(firstDate: Date, lastDate: Date, isWeekly: Bool, totalIncome: Double, totalExpense: Double, transactions: [Transaction]) {
-//        self.firstDate = firstDate
-//        self.lastDate = lastDate
-//        self.isWeekly = isWeekly
-//        self.totalIncome = totalIncome
-//        self.totalExpense = totalExpense
-//        self.transactions = transactions
-//    }
-    
 }

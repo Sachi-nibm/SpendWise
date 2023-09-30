@@ -8,6 +8,7 @@
 import SwiftUI
 import Combine
 
+// View for allowing the user to set their budget at startup
 struct BudgetSetupView: View {
     
     @ObservedObject var budgetViewModel = BudgetSetupViewModel()
@@ -17,6 +18,7 @@ struct BudgetSetupView: View {
         budgetViewModel.addInitialCategories()
     }
     
+    // A slidable tabview is used for a smooth user experience
     var body: some View {
         TabView(selection: $currentTabIndex) {
             VStack {
@@ -111,6 +113,7 @@ private struct SecondTabView: View {
                 Text("Rs")
                     .multilineTextAlignment(.leading)
                     .font(.title)
+                // controlled input allow only to enter numeric values
                 TextField("0.00", text: $balanceStr)
                     .onReceive(Just(balanceStr)) { newValue in
                         var filtered = newValue.filter { "0123456789.".contains($0) }
@@ -206,6 +209,7 @@ private struct ThirdTabView: View {
         VStack() {
             Spacer()
             List {
+                // Dynamically generate input for very category
                 ForEach(categories.indices, id: \.self) { index in
                     VStack {
                         HStack {

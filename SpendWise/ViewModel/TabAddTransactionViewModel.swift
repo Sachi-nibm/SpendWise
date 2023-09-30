@@ -28,6 +28,7 @@ class TabAddTransactionViewModel: ObservableObject {
             showAlert = true
             return
         }
+        // Check if strings are empty
         if (
             description.trimmingCharacters(in: .whitespacesAndNewlines) == "" ||
             location.trimmingCharacters(in: .whitespacesAndNewlines) == "" ||

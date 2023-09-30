@@ -31,6 +31,7 @@ struct SplashScreenView: View {
             Spacer()
         }
         .onAppear {
+            // Add a rotating animation for the icon
             withAnimation(.linear(duration: 3)
                 .repeatForever(autoreverses: false)) {
                     isRotating = 360.0

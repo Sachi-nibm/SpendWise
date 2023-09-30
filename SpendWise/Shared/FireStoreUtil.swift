@@ -9,24 +9,27 @@ import Foundation
 import FirebaseDatabase
 import SwiftUI
 
+// Firebase class with static methods. Can be used by other classes without creating an instance
 class FireStoreUtil {
     
     private static var email: String?
     static var ref: DatabaseReference?
     static var firebaseSnapshot: DataSnapshot?
     
+    // Remove invalid character of email and set email as a key to be used when accessing database
     static func assignEmail(email: String) {
         FireStoreUtil.ref = Database.database(url: "https://spendwise-e47cf-default-rtdb.asia-southeast1.firebasedatabase.app/").reference();
         let modEmail = email.replacingOccurrences(of: "[@.#$\\[\\]]", with: "-", options: .regularExpression, range: nil)
         FireStoreUtil.email = modEmail
-        print(modEmail)
     }
     
+    // Called when logging out
     static func removeEmail() {
         FireStoreUtil.ref = nil
         FireStoreUtil.email = nil
     }
     
+    // get only relevant part from database to be used in other methods
     private static func loadDataFromFirebase(completion: @escaping (DataSnapshot?, Error?) -> Void) {
         guard let email = email, let ref = ref else {
             completion(nil, SpendWiseError.runtimeError("FireStoreUtil is not initialised!"))
@@ -37,6 +40,7 @@ class FireStoreUtil {
         });
     }
     
+    // Load data to be used in application. Also used for refreshing
     static func loadDataObjects(_ userEmail: String, completion: @escaping (User?, TransactionWrapper?, Error?) -> Void) {
         loadDataFromFirebase(completion:  { snapshot, error in
             if let error = error {
@@ -68,6 +72,7 @@ class FireStoreUtil {
         })
     }
     
+    // Save/Update budget
     static func saveBudget(_ isUpdate: Bool, _ balance: Double, _ categories: [Category], completion: @escaping (Error?) -> Void) {
         if let ref = ref, let email = email {
             var data: [String:Any] = (isUpdate ? [:] : ["/balance": balance])
@@ -87,6 +92,7 @@ class FireStoreUtil {
         }
     }
     
+    // Save each expense or income and update the balance
     static func saveTransaction(_ transaction: Transaction, completion: @escaping (Error?) -> Void) {
         if let ref = ref, let email = email {
             let balance: Double;
@@ -122,6 +128,7 @@ class FireStoreUtil {
         }
     }
     
+    // Get data for home gauges. Does not fetch from database consume local data
     static func getTransactionsForHome() -> TransactionWrapper? {
         let isWeekly = UserDefaults.standard.bool(forKey: "isWeekly")
         let timeDifference = TimeZone.current.secondsFromGMT()
@@ -161,6 +168,7 @@ class FireStoreUtil {
         return getTransactionsForDuration(startDate, endDate)
     }
     
+    // Get data for history view. Does not fetch from database consume local data
     static func getTransactionsForDuration(_ startDate: Date, _ endDate: Date) -> TransactionWrapper? {
         if let firebaseSnapshot = firebaseSnapshot {
             let dateFormatter = DateFormatter()

@@ -9,10 +9,16 @@ import SwiftUI
 
 struct ContentView: View {
     
+    // Initialise object for environment variable
     @StateObject var sessionData = SessionData()
     
     var body: some View {
+        
+        // Allow navigation between views
         NavigationView {
+            
+            // Present different views depending on conditions.
+            // These set as root view of navigation
             if sessionData.applicationInitializing {
                 SplashScreenView()
             } else if (sessionData.isUserLoggedIn() && sessionData.isUserInitialized()) {

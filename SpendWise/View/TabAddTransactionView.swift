@@ -58,6 +58,7 @@ struct TabAddTransactionView: View {
                     }
                 }
                 
+                // show category only for expenses
                 if tabAddViewModel.transactionType == "expense" {
                     Section(header: Text("CATEGORY")) {
                         HStack {
@@ -128,6 +129,7 @@ struct TabAddTransactionView: View {
                                         }
                                     }
                                 } label: {
+                                    // disable view and show spinner when saving
                                     if (tabAddViewModel.loadingData) {
                                         ProgressView()
                                             .tint(.primary)

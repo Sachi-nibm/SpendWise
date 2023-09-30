@@ -21,6 +21,7 @@ struct UpdateBudgetView: View {
     @State private var budgetPeriod = Array(repeating: "week", count: 6)
     let colours = CategoryData.categoryColors
     
+    // Load user saved data which will be updated
     init(_ sessionDataIn: SessionData) {
         let localBudget = BudgetSetupViewModel()
         localBudget.addInitialCategories()
