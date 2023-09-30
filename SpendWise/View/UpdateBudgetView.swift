@@ -11,10 +11,12 @@ import Combine
 struct UpdateBudgetView: View {
     
     @EnvironmentObject var sessionData: SessionData
-
+    
     @State var categories: [Category]
     @State var budgetViewModel: BudgetSetupViewModel
-
+    
+    @State private var isLoading = false
+    @State private var showSuccess = false
     @State private var budgetStr: [String]
     @State private var budgetPeriod = Array(repeating: "week", count: 6)
     let colours = CategoryData.categoryColors
@@ -119,26 +121,51 @@ struct UpdateBudgetView: View {
                 }
             }
         }
+        .animation(.easeIn, value: isLoading)
+        .disabled(isLoading)
+        
         HStack {
             Spacer()
             Button() {
+                isLoading = true
+                budgetViewModel.categories = categories
                 budgetViewModel.saveData(true, budgetStr, budgetPeriod) { categories in
-                    if let categories = categories {
-                        sessionData.currentUser?.categories = categories
+                    DispatchQueue.main.async {
+                        self.isLoading = false
+                        if let categories = categories {
+                            showSuccess = true
+                            sessionData.currentUser?.categories = categories
+                        }
                     }
                 }
             } label: {
-                Text("Save")
-                    .padding(.leading)
-                Label("", systemImage: "checkmark.circle.fill")
+                if (isLoading) {
+                    ProgressView()
+                        .tint(.primary)
+                        .padding(.horizontal, 20)
+                        .padding(.vertical, 10)
+                        .font(.title3)
+                } else {
+                    Text("Save Data ")
+                    Label("", systemImage: "square.and.arrow.down")
+                }
             }
             .font(.title2)
-            .frame(width: 120, height: 45)
+            .padding(.vertical, 5)
+            .padding(.horizontal, 20)
             .background(Color.blue)
             .foregroundColor(Color.white)
             .cornerRadius(10)
             Spacer()
         }
+        .alert(isPresented: $showSuccess) {
+            Alert(
+                title: Text("SUCCESS"),
+                message: Text("Data saved successfully."),
+                dismissButton: .default(Text("OK")))
+        }
+        .animation(.easeIn, value: isLoading)
+        .disabled(isLoading)
         Spacer()
     }
 }

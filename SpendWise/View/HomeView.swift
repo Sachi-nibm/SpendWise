@@ -85,6 +85,13 @@ struct HomeView: View {
                 Color(.secondarySystemFill).edgesIgnoringSafeArea(.all)
             )
         }
+        .onAppear() {
+            sessionData.reloadUserData() { error in
+                if let _ = error {
+                    print("Error in data reload!")
+                }
+            }
+        }
     }
 }
 

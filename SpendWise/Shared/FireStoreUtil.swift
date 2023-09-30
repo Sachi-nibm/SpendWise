@@ -70,7 +70,7 @@ class FireStoreUtil {
     
     static func saveBudget(_ isUpdate: Bool, _ balance: Double, _ categories: [Category], completion: @escaping (Error?) -> Void) {
         if let ref = ref, let email = email {
-            var data: [String:Any] = (isUpdate ? ["/balance": balance] : [:])
+            var data: [String:Any] = (isUpdate ? [:] : ["/balance": balance])
             for category in categories {
                 data["/\(category.id)/budget"] = category.budget
                 data["/\(category.id)/colorCode"] = category.colourCode

@@ -64,7 +64,7 @@ struct TabSettingsView: View {
                 Section() {
                     HStack{
                         Image(systemName: "paintpalette")
-                        Text("Category Colours")
+                        Text("Edit Categories")
                         Spacer()
                         NavigationLink("", destination: UpdateBudgetView(sessionData))
                     }

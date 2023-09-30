@@ -51,12 +51,15 @@ class TabAddTransactionViewModel: ObservableObject {
                 loadingData = true
                 FireStoreUtil.saveTransaction(transaction) { error in
                     DispatchQueue.main.async {
+                        self.loadingData = false
                         if let error = error {
-                            self.loadingData = false
                             self.errorMessage = "\(error)"
                             self.showAlert = true
                         } else {
                             // Reset data
+                            self.showSuccess = true
+                            self.errorMessage = "Data save successfully."
+                            self.showAlert = true
                             self.categories = CategoryData.categories
                             self.categoryID = CategoryData.categories[0].id
                             self.recordDate = Date()

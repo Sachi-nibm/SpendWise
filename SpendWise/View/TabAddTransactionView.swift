@@ -128,10 +128,18 @@ struct TabAddTransactionView: View {
                                         }
                                     }
                                 } label: {
-                                    Text("Save Income")
-                                        .padding(.horizontal)
-                                        .padding(.vertical, 10)
-                                        .font(.title3)
+                                    if (tabAddViewModel.loadingData) {
+                                        ProgressView()
+                                            .tint(.primary)
+                                            .padding(.horizontal, 50)
+                                            .padding(.vertical, 10)
+                                            .font(.title3)
+                                    } else {
+                                        Text("Save Income")
+                                            .padding(.horizontal)
+                                            .padding(.vertical, 10)
+                                            .font(.title3)
+                                    }
                                 }
                                 .foregroundColor(.white)
                                 .background(Color.blue)

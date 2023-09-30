@@ -140,6 +140,9 @@ struct TabTransactionHistoryView: View {
                 }
             }
         }
+        .onAppear() {
+            transactions = FireStoreUtil.getTransactionsForDuration(startDate, endDate)?.transactions ?? []
+        }
     }
     
     // Helper functions

@@ -69,5 +69,6 @@ struct TransactionDetailView: View {
             .listStyle(.plain)
             .disabled(true)
         }
+        .navigationBarTitle((transaction.isExpense ? "Expense" : "Income"), displayMode: .large)
     }
 }
