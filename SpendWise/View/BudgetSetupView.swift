@@ -290,7 +290,7 @@ private struct ThirdTabView: View {
             )
             Spacer()
             Button() {
-                budgetViewModel.saveData(budgetStr, budgetPeriod) { categories in
+                budgetViewModel.saveData(false, budgetStr, budgetPeriod) { categories in
                     if let categories = categories {
                         sessionData.currentUser?.categories = categories
                     }

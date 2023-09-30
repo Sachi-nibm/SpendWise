@@ -102,16 +102,6 @@ struct TabTransactionHistoryView: View {
                                 .alignmentGuide(.listRowSeparatorLeading) { viewDimensions in
                                     return 0
                                 }
-//                                .overlay(
-//                                    (
-//                                        index != 0 ?
-//                                        Rectangle()
-//                                            .frame(width: nil, height: 1, alignment: .top)
-//                                            .foregroundColor(Color.gray.opacity(0.3))
-//                                        :
-//                                            nil
-//                                    ), alignment: .top
-//                                )
                             } else {
                                 HStack(spacing: 0) {
                                     RoundedRectangle(cornerRadius: 10)
@@ -144,16 +134,6 @@ struct TabTransactionHistoryView: View {
                                 .alignmentGuide(.listRowSeparatorLeading) { viewDimensions in
                                     return 0
                                 }
-//                                .overlay(
-//                                    (
-//                                        index != 0 ?
-//                                        Rectangle()
-//                                            .frame(width: nil, height: 1, alignment: .top)
-//                                            .foregroundColor(Color.gray.opacity(0.3))
-//                                        :
-//                                            nil
-//                                    ), alignment: .top
-//                                )
                             }
                         }
                     }

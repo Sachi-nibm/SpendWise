@@ -16,7 +16,6 @@ class BudgetSetupViewModel: ObservableObject {
     @Published var isLoading: Bool = false
     @Published var showAlert: Bool = false
     @Published var errorMessage: String = ""
-    @Published var updateMode: Bool = false
     
     func addInitialCategories() {
         categories = CategoryData.categories
@@ -34,7 +33,7 @@ class BudgetSetupViewModel: ObservableObject {
         }
     }
     
-    func saveData(_ budgetStrArray: [String], _ budgetPeriodArray: [String], completion: @escaping ([Category]?) -> Void) {
+    func saveData(_ isUpdate: Bool, _ budgetStrArray: [String], _ budgetPeriodArray: [String], completion: @escaping ([Category]?) -> Void) {
         var duplicateColor = false
         var collectedColors: [String] = []
         for category in categories {
@@ -62,7 +61,7 @@ class BudgetSetupViewModel: ObservableObject {
                 }
             }
             isLoading = true
-            FireStoreUtil.saveBudget((balance ?? 0), categories) { error in
+            FireStoreUtil.saveBudget(isUpdate, (balance ?? 0), categories) { error in
                 DispatchQueue.main.async {
                     self.isLoading = false
                     if let error = error {

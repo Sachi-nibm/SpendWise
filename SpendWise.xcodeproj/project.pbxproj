@@ -20,6 +20,7 @@
 		E6A6BF622AC5C8D8009DB4A2 /* TabTransactionHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A6BF612AC5C8D8009DB4A2 /* TabTransactionHistoryView.swift */; };
 		E6A6BF642AC684E2009DB4A2 /* TabSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A6BF632AC684E2009DB4A2 /* TabSettingsView.swift */; };
 		E6A6BF682AC774E7009DB4A2 /* TransactionDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A6BF672AC774E7009DB4A2 /* TransactionDetailView.swift */; };
+		E6A6BF6C2AC795A3009DB4A2 /* UpdateBudgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A6BF6B2AC795A3009DB4A2 /* UpdateBudgetView.swift */; };
 		E6CC4A4A2ABF465C00C9BE5A /* BudgetSetupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6CC4A492ABF465C00C9BE5A /* BudgetSetupViewModel.swift */; };
 		E6CC4A4C2ABF488A00C9BE5A /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6CC4A4B2ABF488A00C9BE5A /* Category.swift */; };
 		E6DBF2B32AA33BC1004A7B35 /* SpendWiseApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6DBF2B22AA33BC1004A7B35 /* SpendWiseApp.swift */; };
@@ -47,6 +48,7 @@
 		E6A6BF612AC5C8D8009DB4A2 /* TabTransactionHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabTransactionHistoryView.swift; sourceTree = "<group>"; };
 		E6A6BF632AC684E2009DB4A2 /* TabSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabSettingsView.swift; sourceTree = "<group>"; };
 		E6A6BF672AC774E7009DB4A2 /* TransactionDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionDetailView.swift; sourceTree = "<group>"; };
+		E6A6BF6B2AC795A3009DB4A2 /* UpdateBudgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateBudgetView.swift; sourceTree = "<group>"; };
 		E6CC4A492ABF465C00C9BE5A /* BudgetSetupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetSetupViewModel.swift; sourceTree = "<group>"; };
 		E6CC4A4B2ABF488A00C9BE5A /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		E6DBF2AF2AA33BC1004A7B35 /* SpendWise.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpendWise.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -144,6 +146,7 @@
 				E6A6BF612AC5C8D8009DB4A2 /* TabTransactionHistoryView.swift */,
 				E6A6BF632AC684E2009DB4A2 /* TabSettingsView.swift */,
 				E6A6BF672AC774E7009DB4A2 /* TransactionDetailView.swift */,
+				E6A6BF6B2AC795A3009DB4A2 /* UpdateBudgetView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -253,6 +256,7 @@
 				E6DBF2B32AA33BC1004A7B35 /* SpendWiseApp.swift in Sources */,
 				E6E0C68D2ABB9D5000624992 /* BudgetSetupView.swift in Sources */,
 				E6A6BF642AC684E2009DB4A2 /* TabSettingsView.swift in Sources */,
+				E6A6BF6C2AC795A3009DB4A2 /* UpdateBudgetView.swift in Sources */,
 				E6A6BF622AC5C8D8009DB4A2 /* TabTransactionHistoryView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

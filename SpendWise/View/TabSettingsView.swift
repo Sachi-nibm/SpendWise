@@ -61,14 +61,14 @@ struct TabSettingsView: View {
                         })
                     }
                 })
-//                Section() {
-//                    HStack{
-//                        Image(systemName: "paintpalette")
-//                        Text("Category Colours")
-//                        Spacer()
-//                        NavigationLink("", destination: BudgetSetupView())
-//                    }
-//                }
+                Section() {
+                    HStack{
+                        Image(systemName: "paintpalette")
+                        Text("Category Colours")
+                        Spacer()
+                        NavigationLink("", destination: UpdateBudgetView(sessionData))
+                    }
+                }
             }
             HStack {
                 Button() {
